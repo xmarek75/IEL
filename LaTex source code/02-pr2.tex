@@ -1,0 +1,77 @@
+\section{Příklad 2}
+% Jako parametr zadejte skupinu (A-H)
+\druhyZadani{B}
+\noindent\makebox[\linewidth]{\rule{\textwidth}{0.3pt}}
+
+Nejdříve si vytvoříme ekvivalentní obvod a to vzhledem k rezistoru $R_3$, u kterého chceme zjistit proud a napětí. Rovnou si vytvoříme i rovnici pro výpočet $I_{R_3}$.
+$$I_{R_3}=\frac{U_i}{R_i+R_3}$$\\
+\begin{center}
+\begin{circuitikz}
+\draw
+(0,0) to[V,v=U] (0,-3)
+(0,0) to[short, -,i=$I$] (1,0)
+(0,0) to[R, l=$R_i$, -] (3,0)
+(3,0) to[R, l=$R_3$, -] (3,-3)
+(3,-3) to[short, -] (0,-3)
+;
+\end{circuitikz}
+\end{center}
+Teď musíme zjistit $R_i$ a $U_i$. \\
+V původním obvodu odpojíme zdroj napětí a rezistor $R_3$.
+\begin{center}
+\begin{circuitikz}
+\draw
+(0,0) to[short,-] (0,-3)
+(0,0) to[short, -*] (2,0)
+(2,0) to[short, -] (2,1)
+(2,0) to[short, -] (2,-1)
+(2,1) to[R, l=$R_1$, -] (4,1)
+(2,-1) to[R, l=$R_2$, -] (4,-1)
+(4,1) to[short, *-o] (4,0.7)
+(4,-1) to[short, *-o] (4,-0.7)
+(4,1) to[R, l=$R_4$, -] (6,1)
+(4,-1) to[R, l=$R_6$, -] (6,-1)
+(6,1) to[R, l=$R_5$, -*] (6,-1)
+(0,-3) to[short, -] (6,-3)
+(6,-3) to[short, -] (6,-1)
+;
+\end{circuitikz}
+\end{center}
+\\
+\pagebreak
+Teď zjistíme $R_i$(=$R_{EKV}$) tak, že sloučíme všechny rezistory do jednoho.
+\\
+$$R_{45}=R_4+R_5=220+570=790\Omega$$\\
+$$R_{12}=\frac{R_1*R_2}{R_1+R_2}=\frac{50*310}{50+310}=43.0556\Omega$$\\
+$$R_{456}=\frac{R_{45}*R_6}{R_{45}+R_6}=\frac{790*200}{790+200}=159.596\Omega$$\\
+$$R_i=R_{12}+R_{456}=43.0556+159.596=202.6516\Omega$$\\
+$R_i$ už jsme zjistili, nyní je třeba zjistit $U_i$ - napěťové zdroje v původním obvodu zapojím zpátky, $R_3$ nechám odpojené a místo něj zde bude hledané napětí $U_i$.
+\begin{center}
+\begin{circuitikz}
+\draw
+(0,0) to[V,v=U] (0,-3)
+(0,0) to[short, -*] (2,0)
+(2,0) to[short, -] (2,1)
+(2,0) to[short, -] (2,-1)
+(2,1) to[R, l=$R_1$, -] (4,1)
+(2,-1) to[R, l=$R_2$, -] (4,-1)
+(4,1) to[short, *-o] (4,0.7)
+(4,-1) to[short, *-o] (4,-0.7)
+(4,1) to[R, l=$R_4$, -] (6,1)
+(4,-1) to[R, l=$R_6$, -] (6,-1)
+(6,1) to[R, l=$R_5$, -*] (6,-1)
+(0,-3) to[short, -] (6,-3)
+(6,-3) to[short, -] (6,-1)
+;
+\end{circuitikz}
+\end{center}
+Nyní musíme zjistit napětí na $R_1$ a na $R_2$.
+$$U_{R_1}=\frac{U*R_1}{R_1+R_{45}}=\frac{100*50}{50+790}=5.9524V$$
+$$U_{R_2}=\frac{U*R_2}{R_2+R_6}=\frac{100*310}{310+200}=60.7843V$$
+$U_i$ vypočítáme jako rozdíl $U_{R_2}$ a $U_{R_1}$.
+$$U_i=U_{R_2}-U_{R_1}=60.7843-5.9524=54.8319$$
+Teď se vrátíme na začátek ke vzorci $I_{R_3}$ a dosadíme do něj hodnoty.
+$$I_{R_3}=\frac{U_i}{R_i+R_3}=\frac{54.8319}{202.6516+610}=0.0675A$$
+A teď už jen dopočítáme napětí $U_{R_3}$.
+$$U_{R_3}=I_{R_3}*R_3=0.0675*610=41.175V$$
+
